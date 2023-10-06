@@ -2,6 +2,7 @@ Implementación del microservice de la aplicación Mascota. La notificación ser
 
 Registro Mascota 
 
+La base de datos es MongoDB y empleará el servicio de MongoDB
 
 Deploy
 // TODO 
