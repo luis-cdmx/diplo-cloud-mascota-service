@@ -4,11 +4,28 @@
 
 Implementation of notification microservice for the Mascota application.
 The notification will be created for the following event:
-- User Register
+- Mascota Register
 
-The following scripts are provided for the MongoDB database/collections creation:
-* notificaciondb_creation.js
-* tipo_notificacion_collection.js
+
+## Dependencias
+This application requires to be connected to an MongoDB.
+For testing pourposes it was used the one from
+[dockerhub](https://hub.docker.com/_/mongo)
+It was extracted using: 
+```shell
+docker pull mongo
+```
+The MongoDB user mus be created before running the app. Below is one sample to set them. The values could be different but they must be set as variables when deploying the app.
+```shell
+use admin;
+db.createUser(
+{
+user: "mascota_owner",
+pwd: "mascota_password",
+roles: [ { role: "userAdmin", db: "mascotadb"
+}]
+});
+```
 
 ## Deploy
 
