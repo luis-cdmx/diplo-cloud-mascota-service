@@ -9,13 +9,9 @@ The notification will be created for the following event:
 
 ## Dependencias
 This application requires to be connected to an MongoDB.
-For testing pourposes it was used the one from
+For testing pourposes a MongoDB image was used from
 [dockerhub](https://hub.docker.com/_/mongo)
-It was extracted using: 
-```shell
-docker pull mongo
-```
-The MongoDB user mus be created before running the app. Below is one sample to set them. The values could be different but they must be set as variables when deploying the app.
+The MongoDB user must be created before running the app. Below is one sample to set them. The values could be different but they must be set as variables when deploying the app.
 ```shell
 use admin;
 db.createUser(
@@ -55,7 +51,7 @@ The expected result should looks like:
  
 ### Reference Documentation
 For further reference, please consider the following sections:
-
+* [Docker MongoDB image](https://hub.docker.com/_/mongo)
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.15/maven-plugin/reference/html/)
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.15/maven-plugin/reference/html/#build-image)
