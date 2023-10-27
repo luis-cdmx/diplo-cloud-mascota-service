@@ -27,8 +27,11 @@ roles: [ { role: "userAdmin", db: "mascotadb"
 ```
 
 ## Deploy
+Clone the repository
+```shell
+git clone https://github.com/urielhdez/diplo-cloud-notificacion-service
+```
 
-`// TODO `
 
 ## Test
 
