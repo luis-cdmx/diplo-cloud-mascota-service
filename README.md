@@ -6,6 +6,9 @@ Implementation of notification microservice for the Mascota application.
 The notification will be created for the following event:
 - Mascota Register
 
+* [API specification for the project] (https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/src/main/resources/application.properties)
+* [Properties required to be set to run the app](https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/src/main/resources/application.properties)
+
 
 ## Dependencias
 This application requires to be connected to an MongoDB.
