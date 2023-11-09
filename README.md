@@ -10,11 +10,19 @@ The notification will be created for the following event:
 * [Properties required to be set to run the app](https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/src/main/resources/application.properties)
 
 
-## Dependencias
-This application requires to be connected to an MongoDB.
+## Dependencies
+This application requires to be connected to an MongoDB with a defined user. 
 For testing pourposes a MongoDB image was used from
 [dockerhub](https://hub.docker.com/_/mongo)
-The MongoDB user must be created before running the app. Below is one sample to set them. The values could be different but they must be set as variables when deploying the app.
+. Executed with the bellow command where network net1 must exit or being replaced for an existing one.
+```shell
+docker run --network net1 --name mascota-mongo -d mongo:latest
+```
+Once the image is up connect to it to execute mongo commnds.
+```shell
+docker exec -it mascota-mongo mongosh
+```
+Create the user. Here some sampling values.
 ```shell
 use admin;
 db.createUser(
@@ -24,7 +32,9 @@ pwd: "mascota_password",
 roles: [ { role: "userAdmin", db: "mascotadb"
 }]
 });
+db.getUsers();
 ```
+Type exit to quit.
 
 ## Deploy
 Clone the repository
