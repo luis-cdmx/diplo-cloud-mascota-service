@@ -1,15 +1,24 @@
-# FROM openjdk:17-jdk-alpine
-FROM openjdk:17-oracle
-MAINTAINER José Luis Rivera <elocasodelosidolos@gmail.com>
-# a default value
-ENV MONGO_HOSTNAME mongo_prac
-ENV MONGO_PORT 27017
-ENV MONGO_AUTHDB admin 
-ENV MONGO_DB mascotadb
-ENV MONGO_USER mascota_owner
-ENV MONGO_PWD mascota_password
-ENV TOMCAT_PORT 8084
-EXPOSE 8084
-ARG JAR_FILE=target/*.jar
-COPY target/*.jar app.jar
-CMD ["java", "-jar", "/app.jar"]
+# Usa la imagen oficial de Maven como imagen base
+FROM maven:3.9.5-eclipse-temurin-17 AS build
+
+# Copia los archivos de configuración y el código fuente
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+
+# Establece el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Compila la aplicación
+RUN mvn clean install
+
+# Cambia a una imagen más ligera de Java para la ejecución
+FROM openjdk:17.0.2-slim
+
+# Copia el archivo JAR generado en la etapa anterior
+COPY --from=build /usr/src/app/target/mascota*.jar /app/mascota-rest.jar
+
+# Expone el puerto en el que la aplicación se ejecutará
+EXPOSE 8080
+
+# Comando para ejecutar la aplicación al iniciar el contenedor
+CMD ["java", "-jar", "/app/mascota-rest.jar"]
