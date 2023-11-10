@@ -14,7 +14,12 @@ The notification will be created for the following event:
 This application requires to be connected to an MongoDB with a defined user. 
 For testing pourposes a MongoDB image was used from
 [dockerhub](https://hub.docker.com/_/mongo)
-#### Run with Kubernetes
+## Deploy
+Clone the repository (it has yaml files to deploy in Kubernetes)
+```shell
+git clone https://github.com/urielhdez/diplo-cloud-notificacion-service
+```
+#### Run with Docker
 . Executed with the bellow command where network net1 must exit or being replaced for an existing one.
 ```shell
 docker run --network net1 --name mascota-mongo -d mongo:latest
@@ -49,13 +54,9 @@ db.getUsers();
 ```
 Type exit to quit.
 
-## Deploy
-Clone the repository
-```shell
-git clone https://github.com/urielhdez/diplo-cloud-notificacion-service
-```
+
 ### Buid & push docker image 
-If you want to create your own image adjusting the im age name and tag
+If you want to create your own image adjuste the image name and tag an run below commands
 ```shell
 docker build -t luisriveracdmx/mascota-rest-app:latest .
 docker push luisriveracdmx/mascota-rest-app:latest
