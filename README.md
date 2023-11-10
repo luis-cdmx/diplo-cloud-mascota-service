@@ -14,15 +14,27 @@ The notification will be created for the following event:
 This application requires to be connected to an MongoDB with a defined user. 
 For testing pourposes a MongoDB image was used from
 [dockerhub](https://hub.docker.com/_/mongo)
+#### Run with Kubernetes
 . Executed with the bellow command where network net1 must exit or being replaced for an existing one.
 ```shell
 docker run --network net1 --name mascota-mongo -d mongo:latest
 ```
+#### Run with Kubernetes
+Apply the mongo yaml files to run the mongo image on kubernetes
+```shell
+kubectl apply -f mascota-mongo-deployment.yaml
+mascota-mongo-service.yaml
+```
 Once the image is up connect to it to execute mongo commnds.
-### Run with Docker
+#### Adjust with Docker
 ```shell
 docker exec -it mascota-mongo mongosh
 ```
+#### Adjust with Kubernates
+```shell
+kubectl exec -it mascota-mongo-deployment-dc7ddfd45-zm2gl -- mongosh
+```
+### Set the user
 Create the user. Here some sampling values.
 ```shell
 use admin;
@@ -42,12 +54,17 @@ Clone the repository
 ```shell
 git clone https://github.com/urielhdez/diplo-cloud-notificacion-service
 ```
-### Run with Docker
+### Buid & push docker image 
+If you want to create your own image adjusting the im age name and tag
+```shell
+docker build -t luisriveracdmx/mascota-rest-app:latest .
+docker push luisriveracdmx/mascota-rest-app:latest
+```
+#### Run with Docker
 Adjust accordingly the values of network and 
 ```shell
 docker run -it -p 8084:8084 --network net1 -e MONGO_HOSTNAME=mascota-mongo -e MONGO_PORT=27017 -e MONGO_AUTHDB=admin -e MONGO_DB=mascotadb -e MONGO_USER=mascota_owner -e MONGO_PWD=mascota_password -e TOMCAT_PORT=8084 --name test-mascota-app luisriveracdmx/mascota-rest-app
 ```
-
 ## Test
 Execute the next `curl` command to validate the deploy of the service. 
 ```shell
