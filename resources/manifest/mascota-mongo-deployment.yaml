@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mascota-mongo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mascota-mongo
+  template:
+    metadata:
+      labels:
+        app: mascota-mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 2017
