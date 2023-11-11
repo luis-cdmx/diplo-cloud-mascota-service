@@ -28,7 +28,7 @@ docker run --network net1 --name mascota-mongo -d mongo:latest
 Apply the mongo yaml files to run the mongo image on kubernetes
 ```shell
 kubectl apply -f mascota-mongo-deployment.yaml
-mascota-mongo-service.yaml
+kubectl apply -f mascota-mongo-service.yaml
 ```
 Once the image is up connect to it to execute mongo commnds.
 #### Adjust with Docker
@@ -66,6 +66,13 @@ Adjust accordingly the values of network and
 ```shell
 docker run -it -p 8084:8084 --network net1 -e MONGO_HOSTNAME=mascota-mongo -e MONGO_PORT=27017 -e MONGO_AUTHDB=admin -e MONGO_DB=mascotadb -e MONGO_USER=mascota_owner -e MONGO_PWD=mascota_password -e TOMCAT_PORT=8084 --name test-mascota-app luisriveracdmx/mascota-rest-app
 ```
+#### Run with Kubernetes
+Apply the rest yaml files to run the mongo image on kubernetes
+```shell
+kubectl apply -f mascota-rest-deployment.yaml
+kubectl apply -f mascota-rest-service.yaml
+```
+
 ## Test
 Execute the next `curl` command to validate the deploy of the service. 
 ```shell
