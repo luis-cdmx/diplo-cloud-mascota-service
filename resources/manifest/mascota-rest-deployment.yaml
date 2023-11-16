@@ -17,3 +17,39 @@ spec:
           image: luisriveracdmx/mascota-rest-app:latest
           ports:
             - containerPort: 8084
+          env:
+          - name: MONGO_HOSTNAME
+            valueFrom:
+              secretKeyRef:
+                name: mascota-secret
+                key: MONGO_HOSTNAME
+          - name: MONGO_PORT
+            valueFrom:
+              secretKeyRef:
+                name: mascota-secret
+                key: MONGO_PORT
+          - name: MONGO_AUTHDB
+            valueFrom:
+              secretKeyRef:
+                name: mascota-secret
+                key: MONGO_AUTHDB
+          - name: MONGO_DB
+            valueFrom:
+              secretKeyRef:
+                name: mascota-secret
+                key: MONGO_DB
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: mascota-secret
+                key: MONGO_USER
+          - name: MONGO_PWD
+            valueFrom:
+              secretKeyRef:
+                name: mascota-secret
+                key: MONGO_PWD
+          - name: TOMCAT_PORT
+            valueFrom:
+              secretKeyRef:
+                name: mascota-secret
+                key: TOMCAT_PORT
