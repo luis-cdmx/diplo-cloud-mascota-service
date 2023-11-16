@@ -36,6 +36,11 @@ Once the image is up connect to it to execute mongo commnds.
 docker exec -it mascota-mongo mongosh
 ```
 #### Adjust with Kubernates
+Get the specific pod name
+```shell
+kubectl get pods
+```
+Adjust the pod name to the below command to acces it.
 ```shell
 kubectl exec -it mascota-mongo-deployment-dc7ddfd45-zm2gl -- mongosh
 ```
@@ -77,7 +82,7 @@ kubectl apply -f mascota-rest-service.yaml
 Execute the next `curl` command to validate the deploy of the service. 
 ```shell
 curl -X 'POST' \
-  'http://localhost:8084/api/mascotas' \
+  'http://mascota-rest-service:8084/api/mascotas' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
