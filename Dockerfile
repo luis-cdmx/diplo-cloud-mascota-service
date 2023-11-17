@@ -22,3 +22,5 @@ EXPOSE 8080
 
 # Comando para ejecutar la aplicación al iniciar el contenedor
 CMD ["java", "-jar", "/app/mascota-rest.jar"]
+
+# Se agrega este comentario para la practica 2 del modulo 5
