@@ -53,9 +53,7 @@ spec:
               secretKeyRef:
                 name: mascota-secret
                 key: TOMCAT_PORT
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -67,4 +65,3 @@ spec:
     - protocol: TCP
       port: 8084
       targetPort: 8084
-      
