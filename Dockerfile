@@ -18,7 +18,7 @@ FROM openjdk:17.0.2-slim
 COPY --from=build /usr/src/app/target/mascota*.jar /app/mascota-rest.jar
 
 # Expone el puerto en el que la aplicación se ejecutará
-EXPOSE 8080
+EXPOSE 8084
 
 # Comando para ejecutar la aplicación al iniciar el contenedor
 CMD ["java", "-jar", "/app/mascota-rest.jar"]

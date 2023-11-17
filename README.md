@@ -17,10 +17,11 @@ For testing pourposes a MongoDB image was used from
 ## Deploy
 Clone the repository (it has yaml files to deploy in Kubernetes)
 ```shell
-git clone https://github.com/urielhdez/diplo-cloud-notificacion-service
+git clone https://github.com/luis-cdmx/diplo-cloud-mascota-service 
 ```
 #### Run with Docker
 . Executed with the bellow command where network net1 must exit or being replaced for an existing one.
+Se cambia la versión de la imagen de latest a 1.0
 ```shell
 docker run --network net1 --name mascota-mongo -d mongo:latest
 ```
@@ -62,8 +63,8 @@ Type exit to quit.
 ### Buid & push docker image 
 If you want to create your own image adjuste the image name and tag an run below commands
 ```shell
-docker build -t luisriveracdmx/mascota-rest-app:latest .
-docker push luisriveracdmx/mascota-rest-app:latest
+docker build -t luisriveracdmx/mascota-rest-app:1.0 .
+docker push luisriveracdmx/mascota-rest-app:1.0
 ```
 #### Run with Docker
 Adjust accordingly the values of network and 

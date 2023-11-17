@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mascota-rest-container
-          image: luisriveracdmx/mascota-rest-app:latest
+          image: luisriveracdmx/mascota-rest-app:1.0
           ports:
             - containerPort: 8084
           env:
