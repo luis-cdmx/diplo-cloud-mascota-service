@@ -1,5 +1,5 @@
 # Usa la imagen oficial de Maven como imagen base
-FROM maven:3.9.5-eclipse-temurin-17 AS build
+FROM docker.io/maven:3.9.5-eclipse-temurin-17 AS build
 
 # Copia los archivos de configuración y el código fuente
 COPY src /usr/src/app/src
