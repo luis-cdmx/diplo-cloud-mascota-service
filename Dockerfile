@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 RUN mvn clean install
 
 # Cambia a una imagen más ligera de Java para la ejecución
-FROM openjdk:17.0.2-slim
+FROM docker.io/openjdk:17.0.2-slim
 
 # Copia el archivo JAR generado en la etapa anterior
 COPY --from=build /usr/src/app/target/mascota*.jar /app/mascota-rest.jar
