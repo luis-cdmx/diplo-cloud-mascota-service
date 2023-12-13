@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: kubernetes-actions-
+  serviceAccountName: pipeline
+  namespace: user15
+spec:
+  taskRef:
+    name: kubernetes-actions
+  params:
+    - name: script
+      value: |
+        kubectl apply -f https://raw.githubusercontent.com/luis-cdmx/diplo-cloud-mascota-service/main/resources/manifest/mascota-rest.yaml
+        echo "----------"
+        kubectl get deployment
+  workspaces:
+    - name: kubeconfig-dir
+      emptyDir: {}
+    - name: manifest-dir
+      emptyDir: {}
+  serviceAccountName: tekton-pipeline
