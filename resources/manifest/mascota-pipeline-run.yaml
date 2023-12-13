@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: mascota-pipeline-run
+  serviceAccountName: pipeline
+  namespace: user15
+spec:
+  pipelineRef:
+    name: mascota-pipeline
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce 
+          resources:
+            requests:
+              storage: 500Mi
+    - name: maven-settings
+      configmap:
+        name: maven-settings
+  params:
+  - name: giturl
+    value: "https://github.com/luis-cdmx/diplo-cloud-mascota-service"
+  - name: maven_image
+    value: "gcr.io/cloud-builders/mvn@sha256:8f38a2667125a8d83f6e1997847fedb6a06f041c90e2244884153d85d95f869b"
+  - name: buildah_image
+    value: "docker.io/luisriveracdmx/mascota-rest-app:1.0"
