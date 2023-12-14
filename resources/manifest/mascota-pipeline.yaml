@@ -18,9 +18,15 @@ spec:
       type: string
       description: Pull buildah image address
       default: docker.io/luisriveracdmx/mascota-rest-app:1.0
+    - name: mascota-rest-manifest
+      type: string
+      description: Github URL for the mascota service manifest
+      default: https://raw.githubusercontent.com/luis-cdmx/diplo-cloud-mascota-service/main/resources/manifest/mascota-rest.yaml
   workspaces:
     - name: shared-workspace
     - name: maven-settings
+    - name: kubeconfig-dir
+    - name: manifest-dir
   tasks:
     - name: git-clone
       taskRef:
@@ -81,3 +87,20 @@ spec:
       workspaces:
         - name: source
           workspace: shared-workspace
+    - name: kubernetes-actions
+      runAfter:
+        - buildah
+      taskRef:
+        kind: Task
+        name: kubernetes-actions
+      params:
+        - name: script
+          value: |
+            kubectl apply -f $(params.mascota-rest-manifest)
+            echo "----------"
+            kubectl get deployment
+      workspaces:
+        - name: kubeconfig-dir
+          workspace: kubeconfig-dir
+        - name: manifest-dir
+          workspace: manifest-dir
