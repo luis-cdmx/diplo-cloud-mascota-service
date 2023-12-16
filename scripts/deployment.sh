@@ -31,3 +31,4 @@ echo "deployment ready, here the status: \n"
 kubectl get deployment $DEPLOYMENT_NAME -o wide
 
 #Teacher's version, but it ios not used in my case
+#Cambio para seguir probando
