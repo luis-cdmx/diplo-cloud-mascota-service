@@ -85,12 +85,47 @@ Apply the rest yaml files to run the mongo image on kubernetes
 kubectl apply -f mascota-rest.yaml
 ```
 ### Run with Tekton
+#### Setting the environment
+Apply the configuration of the app
 ```shell
-kubectl apply -f mascota-secret.yaml
-kubectl apply -f docker-user-pass.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/mascota-secret.yaml
+```
+Set the user and password of github and docker. There are not sample files to use your own users. 
+```shell
+kubectl apply -f github-user-pass.yaml 
 kubectl apply -f docker-user-pass.yaml
 ```
-
+Link those secrets to the "pipeline" service account
+#### Set the tasks
+```shell
+kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/main/task/git-clone/0.9/git-clone.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/task-list-directory.yaml
+kubectl apply -f kubectl apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/maven/0.3/raw
+kubectl apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/buildah/0.6/raw
+kubectl apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/kubernetes-actions/0.2/raw
+```
+#### Optionally apply the taskruns
+```shell
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/taskrun-git-clone.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/taskrun-list-dir.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/taskrun-maven.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/taskrun-buildah.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/taskrun-deployment.yaml
+```
+#### Set and run the pipeline
+Apply the definition in the manifest
+```shell
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/mascota-pipeline.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/mascota-pipeline-run.yaml
+```
+### Trigger it from github
+Apply the definition in the manifest
+```shell
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/trigger-rbac.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/event-listener.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/trigger-template.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/trigger-binding.yaml
+```
 
 ## Test
 Execute the next `curl` command to validate the deploy of the service. 
@@ -121,6 +156,7 @@ For further reference, please consider the following sections:
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.15/maven-plugin/reference/html/#build-image)
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.7.15/reference/htmlsingle/index.html#web)
 * [Spring Data MongoDB](https://docs.spring.io/spring-boot/docs/2.7.15/reference/htmlsingle/index.html#data.nosql.mongodb)
+* [https://tekton.dev/docs/pipelines/](https://tekton.dev/docs/pipelines/)
 
 ### Guides
 The following guides illustrate how to use some features concretely:
