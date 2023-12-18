@@ -14,7 +14,8 @@ The notification will be created for the following event:
 This application requires to be connected to an MongoDB with a defined user. 
 For testing pourposes a MongoDB image was used from
 [dockerhub](https://hub.docker.com/_/mongo)
-## Deploy
+
+### Deploy
 Clone the repository (it has yaml files to deploy in Kubernetes)
 ```shell
 git clone https://github.com/luis-cdmx/diplo-cloud-mascota-service 
@@ -30,7 +31,9 @@ Apply the mongo yaml files to run the mongo image on kubernetes
 ```shell
 kubectl apply -f mascota-mongo.yaml
 ```
-Once the image is up connect to it to execute mongo commnds.
+
+### Add required user
+Once the image is up connect to it to execute mongo commnds to add the user to connect to it from mascota app.
 #### Adjust with Docker
 ```shell
 docker exec -it mascota-mongo mongosh
@@ -58,20 +61,21 @@ roles: [ { role: "userAdmin", db: "mascotadb"
 db.getUsers();
 ```
 Type exit to quit.
+#### Warning
+Tthe mongo db is only fo a quick test then it does not has a persistant disk. So, any time the pod is restarted, the user will have to be added.
 
-
-### Buid & push docker image 
+## Buid & push docker image 
 If you want to create your own image adjuste the image name and tag an run below commands
 ```shell
 docker build -t luisriveracdmx/mascota-rest-app:1.0 .
 docker push luisriveracdmx/mascota-rest-app:1.0
 ```
-#### Run with Docker
+### Run with Docker
 Adjust accordingly the values of network and 
 ```shell
 docker run -it -p 8084:8084 --network net1 -e MONGO_HOSTNAME=mascota-mongo -e MONGO_PORT=27017 -e MONGO_AUTHDB=admin -e MONGO_DB=mascotadb -e MONGO_USER=mascota_owner -e MONGO_PWD=mascota_password -e TOMCAT_PORT=8084 --name test-mascota-app luisriveracdmx/mascota-rest-app
 ```
-#### Run with Kubernetes
+### Run with Kubernetes
 Run the secrets to se the variables
 ```shell
 kubectl apply -f mascota-secret.yaml
@@ -80,6 +84,13 @@ Apply the rest yaml files to run the mongo image on kubernetes
 ```shell
 kubectl apply -f mascota-rest.yaml
 ```
+### Run with Tekton
+```shell
+kubectl apply -f mascota-secret.yaml
+kubectl apply -f docker-user-pass.yaml
+kubectl apply -f docker-user-pass.yaml
+```
+
 
 ## Test
 Execute the next `curl` command to validate the deploy of the service. 
