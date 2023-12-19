@@ -6,7 +6,7 @@ Implementation of notification microservice for the Mascota application.
 The notification will be created for the following event:
 - Mascota Register
 
-* [API specification for the project](https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/src/main/resources/mascota.yaml)
+* [API specification for the project](https://raw.githubusercontent.com/luis-cdmx/diplo-cloud-mascota-service/main/src/main/resources/api.yaml)
 * [Properties required to be set to run the app](https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/src/main/resources/application.properties)
 
 
@@ -29,7 +29,7 @@ docker run --network net1 --name mascota-mongo -d mongo:latest
 #### Run with Kubernetes
 Apply the mongo yaml files to run the mongo image on kubernetes
 ```shell
-kubectl apply -f mascota-mongo.yaml
+kubectl apply -f https://raw.githubusercontent.com/luis-cdmx/diplo-cloud-mascota-service/main/resources/manifest/mascota-mongo.yaml
 ```
 
 ### Add required user
@@ -48,7 +48,7 @@ Adjust the pod name to the below command to acces it.
 kubectl exec -it mascota-mongo-deployment-dc7ddfd45-zm2gl -- mongosh
 ```
 ### Set the user
-Create the user. Here some sampling values.
+Create the user. You can run the script [createUser.js](https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/scripts/createUser.js)
 ```shell
 use admin;
 db.createUser(
@@ -78,11 +78,11 @@ docker run -it -p 8084:8084 --network net1 -e MONGO_HOSTNAME=mascota-mongo -e MO
 ### Run with Kubernetes
 Run the secrets to se the variables
 ```shell
-kubectl apply -f mascota-secret.yaml
+kubectl apply -f https://raw.githubusercontent.com/luis-cdmx/diplo-cloud-mascota-service/main/resources/manifest/mascota-secret.yaml
 ```
 Apply the rest yaml files to run the mongo image on kubernetes
 ```shell
-kubectl apply -f mascota-rest.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/mascota-rest.yaml
 ```
 ### Run with Tekton
 #### Setting the environment
@@ -121,10 +121,10 @@ kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/m
 ### Trigger it from github
 Apply the definition in the manifest
 ```shell
-kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/trigger-rbac.yaml
-kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/event-listener.yaml
-kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/trigger-template.yaml
-kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/trigger/trigger-binding.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/triggers/trigger-rbac.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/triggers/event-listener.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/triggers/trigger-template.yaml
+kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/triggers/trigger-binding.yaml
 ```
 
 ## Test
