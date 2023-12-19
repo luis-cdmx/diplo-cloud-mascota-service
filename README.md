@@ -100,7 +100,7 @@ Link those secrets to the "pipeline" service account
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/main/task/git-clone/0.9/git-clone.yaml
 kubectl apply -f https://github.com/luis-cdmx/diplo-cloud-mascota-service/blob/main/resources/manifest/tekton/task-list-directory.yaml
-kubectl apply -f kubectl apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/maven/0.3/raw
+kubectl apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/maven/0.3/raw
 kubectl apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/buildah/0.6/raw
 kubectl apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/kubernetes-actions/0.2/raw
 ```
