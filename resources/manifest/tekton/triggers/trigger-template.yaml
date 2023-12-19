@@ -1,0 +1,45 @@
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: tekton-trigger-template
+  namespace: user15
+spec:
+  params:
+    - name: giturl
+      description: Github URL for the mascota service project
+    - name: maven_image
+      description: Pull maven image address
+    - name: buildah_image
+      description: Pull buildah image address
+    - name: mascota-rest-manifest
+      description: Github URL for the mascota service manifest
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: pipelinerun-deploy-
+      spec:
+        serviceAccountName: pipeline
+        pipelineRef:
+          name: mascota-pipeline
+        params:
+          - name: giturl
+            value: $(tt.params.giturl)
+          - name: maven_image
+            value: $(tt.params.maven_image)
+          - name: buildah_image
+            value: $(tt.params.buildah_image)
+          - name: mascota-rest-manifest
+            value: $(tt.params.mascota-rest-manifest)
+        workspaces:
+          - name: maven-settings
+            configmap:
+              name: maven-settings
+          - name: shared-workspace
+            persistentvolumeclaim:
+              claimName: shared-workspace
+          - name: kubeconfig-dir
+            emptyDir: {}
+          - name: manifest-dir
+            emptyDir: {}
